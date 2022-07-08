@@ -1,0 +1,151 @@
+*, *::after, *::before {
+    box-sizing: border-box;
+}
+
+:root {
+    --girdItem-size:100px;
+    --mark-size: calc((var(--girdItem-size)) * .9)
+}
+
+body{
+    margin: 0;
+}
+
+#container{
+    height: 100vh;
+    width: 100vw;
+    display: grid;
+    grid-template-columns: repeat(3, auto);
+    justify-content: center;
+    align-content: center;
+    align-items: center;
+}
+.gridItem{
+    width: var(--girdItem-size);
+    height: var(--girdItem-size);
+    border: solid 1px black;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    cursor: pointer;
+}
+.gridItem:first-child,
+.gridItem:nth-child(2),
+.gridItem:nth-child(3){
+    border-top: none;
+}
+
+.gridItem:nth-child(3n + 1) {
+    border-left: none;
+}
+.gridItem:nth-child(3n + 3) {
+    border-right: none;
+}
+
+.gridItem:last-child,
+.gridItem:nth-child(7),
+.gridItem:nth-child(8){
+    border-bottom: none;
+}
+
+.gridItem.x,
+.gridItem.o{
+    cursor: not-allowed;
+}
+
+.gridItem.x::before,
+.gridItem.x::after{
+    background-color: black;
+}
+
+.gridItem.o::before,
+.gridItem.o::after{
+    background-color: black;
+}
+
+
+.container.x .gridItem:not(.x):not(.o):hover::before,
+.container.x .gridItem:not(.x):not(.o):hover::after,
+.container.o .gridItem:not(.x):not(.o):hover::before{
+    background-color: lightgrey;
+}
+
+
+
+.gridItem.x::before,
+.gridItem.x::after,
+.container.x .gridItem:not(.x):not(.o):hover::before,
+.container.x .gridItem:not(.x):not(.o):hover::after{
+    content: ' ';
+    width: calc(var(--mark-size) * .15);
+    height: var(--mark-size);
+;
+    position: absolute;
+}
+
+.gridItem.x::before,
+.container.x .gridItem:not(.x):not(.o):hover::before
+{
+    transform: rotate(45deg);
+}
+.gridItem.x::after,
+.container.x .gridItem:not(.x):not(.o):hover::after
+{
+    transform: rotate(-45deg);
+}
+
+.gridItem.o::before,
+.gridItem.o::after,
+.container.o .gridItem:not(.x):not(.o):hover::before,
+.container.o .gridItem:not(.x):not(.o):hover::after{
+    content: ' ';
+    position: absolute;
+    border-radius: 50%;
+}
+
+.gridItem.o::before,
+.container.o .gridItem:not(.x):not(.o):hover::before{
+    width: var(--mark-size);
+    height: var(--mark-size);
+    
+}
+
+.gridItem.o::after,
+.container.o .gridItem:not(.x):not(.o):hover::after{
+    width: calc(var(--mark-size) * .7);
+    height: calc(var(--mark-size) * .7);
+    background-color: white;
+}
+
+.end-game{
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.9);
+    justify-content: center;
+    align-items: center;
+    color: white;
+    font-size: 5rem;
+    flex-direction: column;
+}
+
+.end-game button {
+    font-size: 3rem;
+    background-color: white;
+    border:  1px black solid;
+    border-radius: 5%;
+    padding: 25em, 5em;
+    cursor: pointer;
+}
+.end-game button:hover {
+    background-color: black;
+    color: white;
+    border-color: white;
+}
+.end-game.show{
+    display: flex;
+}
